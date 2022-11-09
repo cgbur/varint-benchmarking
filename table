@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# have installed:
+# cargo install criterion-table
+# cargo install criterion-table
+
+cargo criterion --message-format=json | criterion-table >BENCHMARKS.md
