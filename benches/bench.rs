@@ -1,7 +1,7 @@
 use std::time::Duration;
 
 use criterion::{black_box, criterion_group, criterion_main, Criterion, Throughput};
-use prefix_uvarint::{VarintBuf, VarintBufMut};
+use prefix_uvarint::{PrefixVarIntBuf, PrefixVarIntBufMut};
 use rand::distributions::Uniform;
 use rand::prelude::*;
 
@@ -36,7 +36,7 @@ fn benchmark(c: &mut Criterion) {
                 b.iter(|| {
                     output.clear();
                     for v in iv {
-                        output.put_prefix_uvarint(*v)
+                        output.put_prefix_varint(*v)
                     }
                     assert!(output.len() > 0);
                     black_box(&output);
@@ -76,13 +76,13 @@ fn benchmark(c: &mut Criterion) {
         for max_bytes in 1..=MAX_BYTES {
             let mut encoded = Vec::with_capacity(len * max_bytes);
             for v in generate_array(len, max_bytes) {
-                encoded.put_prefix_uvarint(v)
+                encoded.put_prefix_varint(v)
             }
             decode_group.bench_with_input(format!("{}", max_bytes), &encoded, |b, e| {
                 b.iter(|| {
                     let mut b = e.as_slice();
                     for _ in 0..len {
-                        assert!(b.get_prefix_uvarint().unwrap() > 0);
+                        assert!(b.get_prefix_varint::<u64>().unwrap() > 0);
                     }
                 });
             });

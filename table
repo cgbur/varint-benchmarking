@@ -2,6 +2,6 @@
 
 # have installed:
 # cargo install criterion-table
-# cargo install criterion-table
+# cargo install cargo-criterion
 
 cargo criterion --message-format=json | criterion-table >BENCHMARKS.md

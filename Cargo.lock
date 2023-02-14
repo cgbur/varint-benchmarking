@@ -363,9 +363,9 @@ checksum = "5b40af805b3121feab8a3c29f04d8ad262fa8e0561883e7653e024ae4479e6de"
 
 [[package]]
 name = "prefix_uvarint"
-version = "0.2.0"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a4497eba0bcef6edb78bed2bf75ba02282eaedd4bbd34b634e6fabe6ebcc1547"
+checksum = "945438fc2d8177392588a44b3695e773d08b1763e8288970c1e9ccb9a03b9734"
 dependencies = [
  "bytes",
 ]
