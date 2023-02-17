@@ -19,7 +19,7 @@ fn generate_array(len: usize, max_bytes: usize) -> Vec<u64> {
 
 fn benchmark(c: &mut Criterion) {
     const MAX_BYTES: usize = 9;
-    const SIZES: [usize; 1] = [256];
+    const SIZES: [usize; 1] = [1024];
     const MEASUREMENT_TIME: Duration = Duration::from_secs(5);
     const WARMUP_TIME: Duration = Duration::from_secs(1);
 
