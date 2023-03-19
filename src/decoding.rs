@@ -1,4 +1,6 @@
-use prefix_uvarint::{read_prefix_varint_buf, PrefixVarIntBuf, PrefixVarIntBufMut};
+use prefix_uvarint::{
+    read_prefix_varint, read_prefix_varint_buf, PrefixVarIntBuf, PrefixVarIntBufMut,
+};
 use rand::{distributions::Uniform, prelude::Distribution, rngs::StdRng, SeedableRng};
 
 fn generate_array(len: usize, max_bytes: usize) -> Vec<u64> {
@@ -33,6 +35,7 @@ fn main() {
         bench_varint(max_bytes, NUM_OPS, &prefix_data);
         bench_leb128(max_bytes, NUM_OPS, &leb128);
         bench_varint_read(max_bytes, NUM_OPS, &prefix_data);
+        bench_varint_read_buf(max_bytes, NUM_OPS, &prefix_data);
         println!();
     }
 }
@@ -97,6 +100,28 @@ fn bench_varint_read(bytes: usize, ops: usize, input: &[u8]) {
 
 #[inline(always)]
 fn run_varint_read(mut input: &[u8], dst: &mut Vec<u64>, num_ops: usize) {
+    for _ in 0..num_ops {
+        let v = read_prefix_varint(&mut input).unwrap();
+        dst.push(v);
+    }
+}
+
+fn bench_varint_read_buf(bytes: usize, ops: usize, input: &[u8]) {
+    let mut buf = Vec::with_capacity(ops);
+    // warm up
+    run_varint_read_buf(input, &mut buf, ops);
+    buf.clear();
+
+    let before = std::time::Instant::now();
+    run_varint_read_buf(input, &mut buf, ops);
+    let after = std::time::Instant::now();
+    let ns_per_op = (after - before).as_nanos() as f64 / ops as f64;
+    let ns_per_byte = ns_per_op / bytes as f64;
+    pretty_print("varint_read_buf", ops, bytes, ns_per_op, ns_per_byte);
+}
+
+#[inline(always)]
+fn run_varint_read_buf(mut input: &[u8], dst: &mut Vec<u64>, num_ops: usize) {
     for _ in 0..num_ops {
         let v = read_prefix_varint_buf(&mut input).unwrap();
         dst.push(v);
