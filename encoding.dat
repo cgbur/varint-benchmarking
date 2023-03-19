@@ -1,0 +1,36 @@
+name            num_ops    num_bytes ns_per_op ns_per_byte
+varint_put       100000000      1     1.04     1.04
+leb128_write     100000000      1     1.13     1.13
+varint_write     100000000      1     1.11     1.11
+
+varint_put       100000000      2     1.42     0.71
+leb128_write     100000000      2     1.76     0.88
+varint_write     100000000      2     1.21     0.61
+
+varint_put       100000000      3     1.56     0.52
+leb128_write     100000000      3     2.40     0.80
+varint_write     100000000      3     2.24     0.75
+
+varint_put       100000000      4     1.99     0.50
+leb128_write     100000000      4     3.07     0.77
+varint_write     100000000      4     2.24     0.56
+
+varint_put       100000000      5     2.22     0.44
+leb128_write     100000000      5     3.74     0.75
+varint_write     100000000      5     2.68     0.54
+
+varint_put       100000000      6     2.43     0.41
+leb128_write     100000000      6     4.42     0.74
+varint_write     100000000      6     2.90     0.48
+
+varint_put       100000000      7     2.64     0.38
+leb128_write     100000000      7     5.05     0.72
+varint_write     100000000      7     3.32     0.47
+
+varint_put       100000000      8     2.86     0.36
+leb128_write     100000000      8     5.70     0.71
+varint_write     100000000      8     6.12     0.77
+
+varint_put       100000000      9     2.84     0.32
+leb128_write     100000000      9     8.60     0.96
+varint_write     100000000      9     6.13     0.68

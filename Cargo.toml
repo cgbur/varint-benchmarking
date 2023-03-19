@@ -8,14 +8,15 @@ publish = false
 
 [dependencies]
 leb128 = "0.2.5"
-prefix_uvarint = "0.4"
+prefix_uvarint = { path = "../prefix_varint" }
 rand = "0.8.5"
 
 [profile.release]
 lto = true
 codegen-units = 1
-panic = "abort"
-strip = "symbols"
+# panic = "abort"
+# strip = "symbols"
+# debug = true
 
 [dev-dependencies]
 criterion = "0.4.0"
@@ -24,3 +25,15 @@ rand = "0.8.5"
 [[bench]]
 name = "bench"
 harness = false
+
+[[bin]]
+name = "decoding"
+path = "src/decoding.rs"
+
+[[bin]]
+name = "encoding"
+path = "src/encoding.rs"
+
+[[bin]]
+name = "asm"
+path = "src/asm.rs"
